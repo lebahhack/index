@@ -1,0 +1,18 @@
+
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { SITE } from "../lib/site";
+---
+
+<MainLayout
+  title={SITE.title}
+  description={SITE.description}
+  canonical={SITE.url()}
+>
+  <h1>{SITE.title}</h1>
+
+  <div class="faq-item">
+    <h3>Apa itu OpenPobo?</h3>
+    <p>Platform Astro SEO enterprise modern.</p>
+  </div>
+</MainLayout>

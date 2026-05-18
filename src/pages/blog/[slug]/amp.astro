@@ -1,0 +1,32 @@
+
+---
+import AmpLayout from "../../../layouts/AmpLayout.astro";
+import { SITE } from "../../../lib/site";
+
+export async function getStaticPaths() {
+  return [
+    {
+      params: {
+        slug: "modern-seo"
+      }
+    }
+  ];
+}
+
+const slug = Astro.params.slug;
+---
+
+<AmpLayout
+  title="AMP Modern SEO"
+  description="AMP enterprise"
+  canonical={SITE.blog(slug)}
+>
+  <h1>AMP SEO</h1>
+
+  <amp-img
+    src="/images/og-cover.jpg"
+    width="1200"
+    height="630"
+    layout="responsive"
+  ></amp-img>
+</AmpLayout>

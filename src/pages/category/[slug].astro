@@ -1,0 +1,25 @@
+
+---
+import MainLayout from "../../../layouts/MainLayout.astro";
+import { SITE } from "../../../lib/site";
+
+export async function getStaticPaths() {
+  return [
+    {
+      params: {
+        slug: "seo"
+      }
+    }
+  ];
+}
+
+const slug = Astro.params.slug;
+---
+
+<MainLayout
+  title={`Category ${slug}`}
+  description="Category archive"
+  canonical={SITE.category(slug)}
+>
+  <h1>Category {slug}</h1>
+</MainLayout>

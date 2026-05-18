@@ -1,0 +1,42 @@
+
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import { SITE } from "../../lib/site";
+import { articleSchema } from "../../lib/schema";
+
+export async function getStaticPaths() {
+  return [
+    {
+      params: {
+        slug: "modern-seo"
+      }
+    }
+  ];
+}
+
+const slug = Astro.params.slug;
+
+const post = {
+  slug,
+  title: "Modern SEO",
+  description: "Programmatic SEO modern",
+  image: "/images/og-cover.jpg"
+};
+---
+
+<MainLayout
+  title={post.title}
+  description={post.description}
+  canonical={SITE.blog(slug)}
+  amp={SITE.blogAmp(slug)}
+  articleSchema={articleSchema(post)}
+>
+  <article>
+    <h1>{post.title}</h1>
+
+    <details class="faq-item">
+      <summary>Apakah mendukung AGC modern?</summary>
+      <p>Ya, struktur mendukung AGC modern enterprise.</p>
+    </details>
+  </article>
+</MainLayout>
