@@ -1,42 +1,52 @@
-
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
-import { SITE } from "../../lib/site";
-import { articleSchema } from "../../lib/schema";
+import { getCollection } from "astro:content";
 
-export async function getStaticPaths() {
-  return [
-    {
-      params: {
-        slug: "modern-seo"
-      }
-    }
-  ];
-}
+const { slug } = Astro.params;
 
-const slug = Astro.params.slug;
+// ambil semua post
+const posts = (await getCollection("blog")).sort(
+  (a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate)
+);
 
-const post = {
-  slug,
-  title: "Modern SEO",
-  description: "Programmatic SEO modern",
-  image: "/images/og-cover.jpg"
-};
+// kalau ada slug → mode detail
+const post = slug
+  ? posts.find((p) => p.slug === slug)
+  : null;
 ---
 
-<MainLayout
-  title={post.title}
-  description={post.description}
-  canonical={SITE.blog(slug)}
-  amp={SITE.blogAmp(slug)}
-  articleSchema={articleSchema(post)}
->
-  <article>
-    <h1>{post.title}</h1>
+<MainLayout title={post ? post.data.title : "Blog"}>
+  
+  {post ? (
+    <!-- ================= DETAIL PAGE ================= -->
+    <article>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.description}</p>
 
-    <details class="faq-item">
-      <summary>Apakah mendukung AGC modern?</summary>
-      <p>Ya, struktur mendukung AGC modern enterprise.</p>
-    </details>
-  </article>
+      <details class="faq-item">
+        <summary>Apakah mendukung AGC modern?</summary>
+        <p>Ya, struktur mendukung AGC modern enterprise.</p>
+      </details>
+
+      <a href="/blog">← Kembali ke blog</a>
+    </article>
+
+  ) : (
+    <!-- ================= LIST PAGE (/blog) ================= -->
+    <section>
+      <h1>Blog</h1>
+
+      <ul>
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.slug}`}>
+              {post.data.title}
+            </a>
+            <small>{post.data.pubDate}</small>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
 </MainLayout>
