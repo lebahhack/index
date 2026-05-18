@@ -7,7 +7,7 @@ export default defineConfig({
 
   site:
     process.env.SITE_URL ||
-    'https://lebahhack.net',
+    'https://index-lebahhack.pages.dev',
 
   integrations: [
     sitemap()
