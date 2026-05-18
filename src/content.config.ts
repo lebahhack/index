@@ -5,9 +5,9 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
-    category: z.string(),
-    tags: z.array(z.string())
-  })
+  }),
 });
 
-export const collections = { blog };
+export const collections = {
+  blog,
+};
