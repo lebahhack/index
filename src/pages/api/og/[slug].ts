@@ -1,5 +1,5 @@
-import { SITE, sanitizeSlug } from "../../../lib/config";
-import { getPost } from "../../../lib/api";
+import { SITE, sanitizeSlug } from "../../../../lib/config";
+import { getPost } from "../../../../lib/api";
 
 
 export async function onRequest(context) {
