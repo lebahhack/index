@@ -181,23 +181,36 @@ article{
 .welcome h3{
   font-size:12px;
   color:#fff;
-  overflow:hidden;
-  border-right:.15em solid #fbf4a0;
-  white-space:nowrap;
   letter-spacing:.09em;
+  line-height:1.7;
+  overflow:hidden;
+  display:inline-block;
+  border-right:.15em solid #fbf4a0;
+
+  white-space:normal;
+  word-break:break-word;
+
   animation:
-    typing 3.5s steps(40,end),
+    typing 6s steps(120,end),
     blink-caret .75s step-end infinite;
 }
 
 @keyframes typing{
-  from{width:0}
-  to{width:100%}
+  from{
+    clip-path:inset(0 100% 0 0);
+  }
+  to{
+    clip-path:inset(0 0 0 0);
+  }
 }
 
 @keyframes blink-caret{
-  from,to{border-color:transparent}
-  50%{border-color:#fbf4a0}
+  from,to{
+    border-color:transparent;
+  }
+  50%{
+    border-color:#fbf4a0;
+  }
 }
 
 .banner{
