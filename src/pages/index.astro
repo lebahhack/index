@@ -1,11 +1,18 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
-import { SITE } from "../lib/site";
+import MainLayout from '../layouts/MainLayout.astro';
+import { SITE } from '../lib/site';
 
-import Header from "../components/Header.astro";
-import Section1 from "../components/Section1.astro";
-import Section2 from "../components/Section2.astro";
-import Footer from "../components/Footer.astro";
+import HeaderSection1 from '../components/HeaderSection1.astro';
+import HeaderSection2 from '../components/HeaderSection2.astro';
+import HeaderSection3 from '../components/HeaderSection3.astro';
+import HeaderSection4 from '../components/HeaderSection4.astro';
+import HeaderSection5 from '../components/HeaderSection5.astro';
+
+import FeaderSection1 from '../components/FeaderSection1.astro';
+import FeaderSection2 from '../components/FeaderSection2.astro';
+import FeaderSection3 from '../components/FeaderSection3.astro';
+import FeaderSection4 from '../components/FeaderSection4.astro';
+import FeaderSection5 from '../components/FeaderSection5.astro';
 ---
 
 <MainLayout
@@ -14,16 +21,16 @@ import Footer from "../components/Footer.astro";
   canonical={SITE.url()}
 >
 
-  <Header />
+  <HeaderSection1 />
+  <HeaderSection2 />
+  <HeaderSection3 />
+  <HeaderSection4 />
+  <HeaderSection5 />
 
-  <main>
-
-    <Section1 />
-
-    <Section2 />
-
-  </main>
-
-  <Footer />
+  <FeaderSection1 />
+  <FeaderSection2 />
+  <FeaderSection3 />
+  <FeaderSection4 />
+  <FeaderSection5 />
 
 </MainLayout>
