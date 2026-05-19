@@ -1,8 +1,6 @@
 ---
-import MainLayout from '../../../layouts/AmpLayout.astro';
+import AmpLayout from '../../../layouts/AmpLayout.astro';
 import { SITE } from '../../../lib/site';
-
-
 
 import { getCollection, render } from 'astro:content';
 
@@ -27,22 +25,19 @@ const { Content } = await render(post);
 <AmpLayout
   title={`${post.data.title} AMP | ${SITE.title}`}
   description={post.data.description}
-  canonical={SITE.url(`/blog/${post.slug}/amp`)}
+  canonical={SITE.url(`/blog/${post.slug}`)}
 >
 
+<main>
 
+  <article>
 
-  <main amp>
+    <h1>{post.data.title}</h1>
 
-    <article>
+    <Content />
 
-      <h1>{post.data.title}</h1>
+  </article>
 
-      <Content />
+</main>
 
-    </article>
-
-  </main>
-
-
-</MainLayout>
+</AmpLayout>
