@@ -179,28 +179,30 @@ article{
 }
 
 .welcome h3{
-  font-size:12px;
-  color:#fff;
-  letter-spacing:.09em;
-  line-height:1.7;
+  width:0;
   overflow:hidden;
-  display:inline-block;
+
+  color:#fff;
+  font-size:12px;
+  line-height:1.7;
+  letter-spacing:.09em;
+
   border-right:.15em solid #fbf4a0;
 
   white-space:normal;
   word-break:break-word;
 
   animation:
-    typing 6s steps(120,end),
+    typing 8s steps(120,end) forwards,
     blink-caret .75s step-end infinite;
 }
 
 @keyframes typing{
   from{
-    clip-path:inset(0 100% 0 0);
+    width:0;
   }
   to{
-    clip-path:inset(0 0 0 0);
+    width:100%;
   }
 }
 
@@ -379,11 +381,15 @@ amp-img{
 </center>
 </header>
 
+
 <div class="welcome">
-<h3>
-AKTIVASI {title} SEKARANG JUGA !!!
-</h3>
+  <h3>
+    <span>
+      AKTIVASI {title} SEKARANG JUGA !!!
+    </span>
+  </h3>
 </div>
+
 
 <amp-img
   class="banner"
