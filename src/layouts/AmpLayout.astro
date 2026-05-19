@@ -33,9 +33,25 @@ const imageUrl = slug
   content={description}
 />
 
+<meta
+  name="robots"
+  content="index,follow"
+/>
+
+<meta
+  name="robots"
+  content="noarchive"
+/>
+
 <link
   rel="canonical"
   href={canonical}
+/>
+
+<link
+  rel="icon"
+  type="image/x-icon"
+  href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgCqfcwPP6IfdweZeUxoU20EXaj_0GnIqT36H5kLA_45n1Rsoqxc6YV3W8_jwY994wb4DEnMF0dTVXCODVdZVY-DXnsYz_-Ozc2yCfcPUXEg14Jw26OE99bZ487hqm0gHluX03L2lVBkdrzcZf52NJXrLJ7xP_o1-WgzV1ljL14V8c3NTRmJ77t3BSZlM8L/s1600/fav.png"
 />
 
 <!-- OG -->
@@ -43,7 +59,9 @@ const imageUrl = slug
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={SITE.name} />
 <meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={SITE.name} />
 
 <!-- Twitter -->
 <meta
@@ -51,9 +69,26 @@ const imageUrl = slug
   content="summary_large_image"
 />
 
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={imageUrl} />
+<meta
+  name="twitter:title"
+  content={title}
+/>
+
+<meta
+  name="twitter:description"
+  content={description}
+/>
+
+<meta
+  name="twitter:image"
+  content={imageUrl}
+/>
+
+<link
+  rel="preload"
+  as="script"
+  href="https://cdn.ampproject.org/v0.js"
+/>
 
 <script
   async
@@ -66,6 +101,31 @@ body{
   -moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
   -ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
   animation:-amp-start 8s steps(1,end) 0s 1 normal both
+}
+
+@-webkit-keyframes -amp-start{
+  from{visibility:hidden}
+  to{visibility:visible}
+}
+
+@-moz-keyframes -amp-start{
+  from{visibility:hidden}
+  to{visibility:visible}
+}
+
+@-ms-keyframes -amp-start{
+  from{visibility:hidden}
+  to{visibility:visible}
+}
+
+@-o-keyframes -amp-start{
+  from{visibility:hidden}
+  to{visibility:visible}
+}
+
+@keyframes -amp-start{
+  from{visibility:hidden}
+  to{visibility:visible}
 }
 </style>
 
@@ -82,13 +142,20 @@ body{
 
 <style amp-custom>
 
+*{
+  box-sizing:border-box
+}
+
 body{
   margin:0;
   padding:20px;
-  font-family:Arial,sans-serif;
+  font-family:monospace;
   line-height:1.7;
-  color:#111;
-  background:#fff;
+  color:#fff;
+  background:#000;
+  background-image:radial-gradient(#272727 5%,transparent 50%);
+  background-size:5px 5px;
+  background-attachment:fixed;
 }
 
 article{
@@ -96,13 +163,91 @@ article{
   margin:auto;
 }
 
-h1{
-  line-height:1.2;
+.container{
+  max-width:400px;
+  min-height:100vh;
+  margin:0 auto;
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.welcome{
+  max-width:350px;
+  margin:0 auto;
+}
+
+.welcome h3{
+  font-size:12px;
+  color:#fff;
+  overflow:hidden;
+  border-right:.15em solid #fbf4a0;
+  white-space:nowrap;
+  letter-spacing:.09em;
+  animation:
+    typing 3.5s steps(40,end),
+    blink-caret .75s step-end infinite;
+}
+
+@keyframes typing{
+  from{width:0}
+  to{width:100%}
+}
+
+@keyframes blink-caret{
+  from,to{border-color:transparent}
+  50%{border-color:#fbf4a0}
+}
+
+.banner{
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.btn-login,
+.btn-daftar{
+  padding:10px;
+  color:#fff;
+  font-size:20px;
+  font-weight:700;
+  text-decoration:none;
+  text-align:center;
+  background:linear-gradient(
+    to bottom,
+    #3dd210 0%,
+    rgb(20 70 9) 80%
+  );
+  margin-top:10px;
+  border-radius:10px;
+  position:relative;
+  z-index:2;
+  display:block;
+}
+
+.copyright{
+  text-align:center;
+  color:#ffffff96;
+  font-size:14px;
+}
+
+.copyright a{
+  color:#fff;
+  text-decoration:none;
 }
 
 amp-img{
   border-radius:12px;
   overflow:hidden;
+}
+
+.content{
+  max-width:800px;
+  margin:30px auto 0;
+  background:#111;
+  padding:20px;
+  border-radius:12px;
 }
 
 </style>
@@ -111,7 +256,65 @@ amp-img{
 
 <body>
 
+<div class="container">
+
+<header>
+<center>
+<a href="#">
+<amp-img
+  alt={title}
+  height="100"
+  width="300"
+  layout="intrinsic"
+  src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjTnc-aod6rEOutLuZ2u1HdKaI-UOdCUMqfWwm4c6RCNrzH9qskb2zeu5br6I7tzbUtsVJZT_VPoI9bhmNzbTekU5tFUcL_To-xtIE5rV1D2ZpV8CCPuw20l010yc9KdOxoFwbxSejMBqQnMwbUP2RiQfesEXLiHrHNaNANgvs_efhpijL7QS9xlWN86C7Q/s1600/logo.png">
+</amp-img>
+</a>
+</center>
+</header>
+
+<div class="welcome">
+<h3>
+AKTIVASI {title} SEKARANG JUGA !!!
+</h3>
+</div>
+
+<amp-img
+  class="banner"
+  height="500"
+  width="500"
+  layout="intrinsic"
+  src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisoUAcD8zrrmJAFPNkJGXXPmWvBQ1a1cbz7Sfm1L88bKlEGAH11ZWkmxOsADVknICzUPQ49G1AsrcFzvVrCoC_RsqQ5h3y6qxBMlWWsk4XTOj9HlSUz_mNl14J5_O9ck0rTCx464zgI4FtEHhuTJpIODWj-X3h1J9tqI5Dkwb1aI3SKTkAZDC9iSxOPtUL/s1600/aimrferdy.png">
+</amp-img>
+
+<a
+  class="btn-login"
+  href="https://apk.aimrferdy.workers.dev"
+  rel="noreferrer noopener"
+  target="_blank">
+  AKTIVASI {SITE.name}
+</a>
+
+<a
+  class="btn-daftar"
+  href="https://heylink.me/mrferdy"
+  rel="noreferrer noopener"
+  target="_blank">
+  {SITE.name} APK
+</a>
+
+<p class="copyright">
+© 2026 TZ8008 •
+<a href="#">
+{SITE.name}
+</a>
+• All Rights Reserved.
+</p>
+
+</div>
+
+<div class="content">
 <slot />
+</div>
 
 </body>
 
