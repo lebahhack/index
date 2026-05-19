@@ -1,29 +1,64 @@
 ---
+import { SITE } from "../lib/site";
+
 const {
   title,
   description,
-  canonical
+  canonical,
+  slug
 } = Astro.props;
+
+const imageUrl = slug
+  ? SITE.url(`/api/og/${slug}.svg`)
+  : SITE.imageUrl(SITE.image);
 ---
 
 <!doctype html>
+
 <html amp lang="id">
 
 <head>
-<meta charset="utf-8">
 
-<title>{title}</title>
+<meta charset="utf-8" />
 
 <meta
   name="viewport"
   content="width=device-width,minimum-scale=1,initial-scale=1"
 />
 
-<meta name="description" content={description}>
+<title>{title}</title>
 
-<link rel="canonical" href={canonical}>
+<meta
+  name="description"
+  content={description}
+/>
 
-<script async src="https://cdn.ampproject.org/v0.js"></script>
+<link
+  rel="canonical"
+  href={canonical}
+/>
+
+<!-- OG -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:url" content={canonical} />
+
+<!-- Twitter -->
+<meta
+  name="twitter:card"
+  content="summary_large_image"
+/>
+
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+
+<script
+  async
+  src="https://cdn.ampproject.org/v0.js">
+</script>
 
 <style amp-boilerplate>
 body{
@@ -31,31 +66,6 @@ body{
   -moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
   -ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
   animation:-amp-start 8s steps(1,end) 0s 1 normal both
-}
-
-@-webkit-keyframes -amp-start{
-  from{visibility:hidden}
-  to{visibility:visible}
-}
-
-@-moz-keyframes -amp-start{
-  from{visibility:hidden}
-  to{visibility:visible}
-}
-
-@-ms-keyframes -amp-start{
-  from{visibility:hidden}
-  to{visibility:visible}
-}
-
-@-o-keyframes -amp-start{
-  from{visibility:hidden}
-  to{visibility:visible}
-}
-
-@keyframes -amp-start{
-  from{visibility:hidden}
-  to{visibility:visible}
 }
 </style>
 
@@ -71,21 +81,38 @@ body{
 </noscript>
 
 <style amp-custom>
+
 body{
-  font-family:Arial,sans-serif;
+  margin:0;
   padding:20px;
+  font-family:Arial,sans-serif;
   line-height:1.7;
+  color:#111;
+  background:#fff;
+}
+
+article{
+  max-width:800px;
+  margin:auto;
+}
+
+h1{
+  line-height:1.2;
 }
 
 amp-img{
-  max-width:100%;
+  border-radius:12px;
+  overflow:hidden;
 }
+
 </style>
 
 </head>
 
 <body>
+
 <slot />
+
 </body>
 
 </html>
