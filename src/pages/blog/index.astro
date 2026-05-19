@@ -1,36 +1,33 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import { SITE } from '../lib/site';
+import MainLayout from "../../layouts/MainLayout.astro";
+import { SITE } from "../../lib/site";
 
-import HeaderSection1 from '../components/HeaderSection1.astro';
-import HeaderSection2 from '../components/HeaderSection2.astro';
-import HeaderSection3 from '../components/HeaderSection3.astro';
-import HeaderSection4 from '../components/HeaderSection4.astro';
-import HeaderSection5 from '../components/HeaderSection5.astro';
+import HeaderSection1 from "../../components/HeaderSection1.astro";
+import FooterSection1 from "../../components/FooterSection1.astro";
 
-import FooterSection1 from '../components/FooterSection1.astro';
-import FooterSection2 from '../components/FooterSection2.astro';
-import FooterSection3 from '../components/FooterSection3.astro';
-import FooterSection4 from '../components/FooterSection4.astro';
-import FooterSection5 from '../components/FooterSection5.astro';
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
 ---
 
 <MainLayout
-  title={SITE.title}
+  title={`Blog | ${SITE.title}`}
   description={SITE.description}
-  canonical={SITE.url()}
+  canonical={SITE.url("/blog")}
 >
 
   <HeaderSection1 />
-  <HeaderSection2 />
-  <HeaderSection3 />
-  <HeaderSection4 />
-  <HeaderSection5 />
+
+  <main>
+    {posts.map((post) => (
+      <article>
+        <a href={`/blog/${post.slug}`}>
+          {post.data.title}
+        </a>
+      </article>
+    ))}
+  </main>
 
   <FooterSection1 />
-  <FooterSection2 />
-  <FooterSection3 />
-  <FooterSection4 />
-  <FooterSection5 />
 
 </MainLayout>
