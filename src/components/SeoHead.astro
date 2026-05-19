@@ -19,9 +19,9 @@ const {
 } = Astro.props;
 
 // AUTO OG IMAGE
-const imageUrl = image
-  ? SITE.imageUrl(image)
-  : SITE.url(`/api/og/${slug}.svg`);
+const imageUrl = slug
+  ? SITE.url(`/api/og/${slug}.svg`)
+  : SITE.imageUrl(SITE.image);
 ---
 
 <meta charset="utf-8" />
