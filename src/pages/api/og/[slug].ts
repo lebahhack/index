@@ -1,34 +1,18 @@
-import { SITE, sanitizeSlug } from "../../../../lib/config";
-import { getPost } from "../../../../lib/api";
+import { getCollection } from "astro:content";
+import { SITE } from "../../../lib/site";
 
+export async function GET({ params }) {
 
-export async function onRequest(context) {
-  return withCache(context, 86400, async () => {
-    try {
-      let { slug } = context.params;
-      slug = sanitizeSlug(slug || "");
+  const posts = await getCollection("blog");
 
-      const post = await getPost(slug);
+  const post = posts.find(
+    (p) => p.slug === params.slug
+  );
 
-      const title = post?.title || SITE.name;
-      const kategori = (post?.kategori || "AI GACOR").toUpperCase();
+  const title =
+    post?.data.title || SITE.title;
 
-      const themes = [
-        ["#7c3aed", "#111827"],
-        ["#06b6d4", "#0f172a"],
-        ["#ec4899", "#111827"],
-        ["#22c55e", "#111827"],
-        ["#f59e0b", "#111827"]
-      ];
-
-      const theme = themes[slug.length % themes.length];
-      const [color1, color2] = theme;
-
-      const fontSize =
-        title.length > 80 ? 46 :
-        title.length > 55 ? 54 : 64;
-
-      const svg = `
+  const svg = `
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
 
 <defs>
@@ -120,22 +104,14 @@ AI • Teknologi • Blog
 </svg>
 `;
 
-      return new Response(svg, {
-        headers: {
-          "content-type": "image/svg+xml",
-          "cache-control": "public, max-age=86400"
-        }
-      });
-
-    } catch (e) {
-      return new Response("OG Error: " + e.message, {
-        status: 500
-      });
+  return new Response(svg, {
+    headers: {
+      "Content-Type": "image/svg+xml",
+      "Cache-Control": "public, max-age=86400"
     }
   });
 }
 
-// ====================== ESCAPE XML ======================
 function escapeXML(str = "") {
   return String(str)
     .replace(/&/g, "&amp;")
