@@ -1,32 +1,55 @@
-
 ---
-import AmpLayout from "../../../layouts/AmpLayout.astro";
-import { SITE } from "../../../lib/site";
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { SITE } from '../../../lib/site';
+
+import HeaderSection1 from '../../../components/HeaderSection1.astro';
+import HeaderSection2 from '../../../components/HeaderSection2.astro';
+
+import FooterSection1 from '../../../components/FooterSection1.astro';
+import FooterSection2 from '../../../components/FooterSection2.astro';
+
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  return [
-    {
-      params: {
-        slug: "modern-seo"
-      }
+  const posts = await getCollection('blog');
+
+  return posts.map((post) => ({
+    params: {
+      slug: post.slug
+    },
+    props: {
+      post
     }
-  ];
+  }));
 }
 
-const slug = Astro.params.slug;
+const { post } = Astro.props;
+
+const { Content } = await render(post);
 ---
 
-<AmpLayout
-  title="AMP Modern SEO"
-  description="AMP enterprise"
-  canonical={SITE.blog(slug)}
+<MainLayout
+  title={`${post.data.title} AMP | ${SITE.title}`}
+  description={post.data.description}
+  canonical={SITE.url(`/blog/${post.slug}/amp`)}
 >
-  <h1>AMP SEO</h1>
 
-  <amp-img
-    src="/images/og-cover.jpg"
-    width="1200"
-    height="630"
-    layout="responsive"
-  ></amp-img>
-</AmpLayout>
+  <HeaderSection1 />
+  <HeaderSection2 />
+
+  <main amp>
+
+    <article>
+
+      <h1>{post.data.title}</h1>
+
+      <Content />
+
+    </article>
+
+  </main>
+
+  <FooterSection1 />
+  <FooterSection2 />
+
+</MainLayout>
