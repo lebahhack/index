@@ -1,6 +1,6 @@
 import { SITE, sanitizeSlug } from "../../../lib/config";
 import { getPost } from "../../../lib/api";
-import { withCache } from "../../../lib/cache";
+
 
 export async function onRequest(context) {
   return withCache(context, 86400, async () => {
