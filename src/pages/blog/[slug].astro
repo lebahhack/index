@@ -5,8 +5,8 @@ import { SITE } from '../../lib/site';
 import HeaderSection1 from '../../components/HeaderSection1.astro';
 import HeaderSection2 from '../../components/HeaderSection2.astro';
 
-import FeaderSection1 from '../../components/FeaderSection1.astro';
-import FeaderSection2 from '../../components/FeaderSection2.astro';
+import FooterSection1 from '../../components/FooterSection1.astro';
+import FooterSection2 from '../../components/FooterSection2.astro';
 
 import { getCollection, render } from 'astro:content';
 
@@ -49,7 +49,7 @@ const { Content } = await render(post);
 
   </main>
 
-  <FeaderSection1 />
-  <FeaderSection2 />
+  <FooterSection1 />
+  <FooterSection2 />
 
 </MainLayout>
