@@ -7,7 +7,13 @@ import FooterSection1 from "../../components/FooterSection1.astro";
 
 import { getCollection } from "astro:content";
 
-const posts = await getCollection("blog");
+// ambil blog
+let posts = await getCollection("blog");
+
+// sort terbaru (pakai date dari frontmatter)
+posts = posts.sort(
+  (a, b) => new Date(b.data.date) - new Date(a.data.date)
+);
 ---
 
 <MainLayout
@@ -19,15 +25,67 @@ const posts = await getCollection("blog");
   <HeaderSection1 />
 
   <main>
-    {posts.map((post) => (
-      <article>
-        <a href={`/blog/${post.slug}`}>
-          {post.data.title}
-        </a>
-      </article>
-    ))}
+
+    <h1>Blog</h1>
+
+    <section class="grid">
+
+      {posts.map((post) => (
+        <article class="card">
+          <a href={`/blog/${post.slug}/`}>
+
+            <h2>{post.data.title}</h2>
+
+            {post.data.description && (
+              <p>{post.data.description}</p>
+            )}
+
+          </a>
+        </article>
+      ))}
+
+    </section>
+
   </main>
 
   <FooterSection1 />
 
 </MainLayout>
+
+<style>
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+    margin-top:20px;
+  }
+
+  .card{
+    border:1px solid #eee;
+    padding:16px;
+    border-radius:12px;
+    transition:0.2s;
+    background:#fff;
+  }
+
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.08);
+  }
+
+  a{
+    text-decoration:none;
+    color:inherit;
+  }
+
+  h2{
+    font-size:18px;
+    margin:0 0 8px;
+  }
+
+  p{
+    font-size:14px;
+    color:#666;
+    margin:0;
+  }
+</style>
