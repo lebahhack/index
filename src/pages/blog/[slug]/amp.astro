@@ -2,13 +2,9 @@
 import AmpLayout from '../../../layouts/AmpLayout.astro';
 import { SITE } from '../../../lib/site';
 
-import {
-  getCollection,
-  render
-} from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-
   const posts = await getCollection('blog');
 
   return posts.map((post) => ({
@@ -30,7 +26,6 @@ const { Content } = await render(post);
   title={`${post.data.title} AMP | ${SITE.title}`}
   description={post.data.description}
   canonical={SITE.url(`/blog/${post.slug}`)}
-  slug={post.slug}
 >
 
 <main>
