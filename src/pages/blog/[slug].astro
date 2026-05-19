@@ -1,69 +1,58 @@
 ---
-import SeoHead from "../components/SeoHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import MainLayout from '../../layouts/MainLayout.astro';
+import { SITE } from '../../lib/site';
 
-import { generateFaqSchema } from "../lib/faq-schema";
+import HeaderSection1 from '../../components/HeaderSection1.astro';
+import HeaderSection2 from '../../components/HeaderSection2.astro';
+import HeaderSection3 from '../../components/HeaderSection3.astro';
 
-const {
-  title,
-  description,
-  canonical,
-  html = "",
-  articleSchema,
-  breadcrumbs,
-  amp,
-  slug
-} = Astro.props;
+import FooterSection1 from '../../components/FooterSection1.astro';
+import FooterSection2 from '../../components/FooterSection2.astro';
 
-const faqSchema = generateFaqSchema(html);
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  return posts.map((post) => ({
+    params: {
+      slug: post.slug
+    },
+    props: {
+      post
+    }
+  }));
+}
+
+const { post } = Astro.props;
+
+const { Content } = await render(post);
 ---
 
-<!doctype html>
-<html lang="id">
+<MainLayout
+  title={`${post.data.title} | ${SITE.title}`}
+  description={post.data.description}
+  canonical={SITE.url(`/blog/${post.slug}`)}
+  amp={SITE.url(`/blog/${post.slug}/amp`)}
+>
 
-<head>
-
-  <SeoHead
-    title={title}
-    description={description}
-    canonical={canonical}
-    articleSchema={articleSchema}
-    breadcrumbs={breadcrumbs}
-    faqSchema={faqSchema}
-    amp={amp}
-    slug={slug}
-  />
-
-</head>
-
-<body>
-
-  <Header />
+  <HeaderSection1 />
+  <HeaderSection2 />
+  <HeaderSection3 />
 
   <main>
-    <slot />
+
+    <article>
+
+      <h1>{post.data.title}</h1>
+
+      <Content />
+
+    </article>
+
   </main>
 
-  <Footer />
+  <FooterSection1 />
+  <FooterSection2 />
 
-</body>
-
-</html>
-
-<style>
-
-  :global(body){
-    margin:0;
-    font-family:system-ui,sans-serif;
-    color:#111;
-    background:#fff;
-  }
-
-  :global(main){
-    max-width:1100px;
-    margin:auto;
-    padding:2rem 1rem;
-  }
-
-</style>
+</MainLayout>
