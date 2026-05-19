@@ -1,3 +1,4 @@
+perbaiki biar bisa manggil amphtml 
 ---
 import SeoHead from "../components/SeoHead.astro";
 import Header from "../components/Header.astro";
@@ -19,9 +20,7 @@ const faqSchema = generateFaqSchema(html);
 
 <!doctype html>
 <html lang="id">
-
 <head>
-
   <SeoHead
     title={title}
     description={description}
@@ -29,21 +28,11 @@ const faqSchema = generateFaqSchema(html);
     articleSchema={articleSchema}
     breadcrumbs={breadcrumbs}
     faqSchema={faqSchema}
+    amp={amp}
   />
-
-  {
-    amp && (
-      <link
-        rel="amphtml"
-        href={amp}
-      />
-    )
-  }
-
 </head>
 
 <body>
-
   <Header />
 
   <main>
@@ -51,9 +40,7 @@ const faqSchema = generateFaqSchema(html);
   </main>
 
   <Footer />
-
 </body>
-
 </html>
 
 <style>
