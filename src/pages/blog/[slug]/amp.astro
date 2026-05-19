@@ -1,5 +1,5 @@
 ---
-import MainLayout from '../../../layouts/AmpLayout.astro.astro';
+import MainLayout from '../../../layouts/AmpLayout.astro';
 import { SITE } from '../../../lib/site';
 
 
@@ -24,7 +24,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<MainLayout
+<AmpLayout
   title={`${post.data.title} AMP | ${SITE.title}`}
   description={post.data.description}
   canonical={SITE.url(`/blog/${post.slug}/amp`)}
