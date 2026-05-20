@@ -8,6 +8,15 @@ const blog = defineCollection({
   }),
 });
 
+
+const tools = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+  }),
+});
+
 export const collections = {
   blog,
+  tools,
 };
